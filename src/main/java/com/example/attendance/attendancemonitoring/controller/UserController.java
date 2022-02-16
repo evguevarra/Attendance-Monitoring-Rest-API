@@ -1,7 +1,7 @@
-package com.example.attendance.attendancemonitoring;
+package com.example.attendance.attendancemonitoring.controller;
 
 import com.example.attendance.attendancemonitoring.entity.User;
-import org.springframework.http.HttpStatus;
+import com.example.attendance.attendancemonitoring.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

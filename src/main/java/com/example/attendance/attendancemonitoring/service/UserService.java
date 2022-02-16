@@ -1,4 +1,4 @@
-package com.example.attendance.attendancemonitoring;
+package com.example.attendance.attendancemonitoring.service;
 
 import com.example.attendance.attendancemonitoring.entity.User;
 import com.google.api.core.ApiFuture;
