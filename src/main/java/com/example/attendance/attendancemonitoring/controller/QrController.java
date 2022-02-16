@@ -4,9 +4,7 @@ import com.example.attendance.attendancemonitoring.entity.QrCode;
 import com.example.attendance.attendancemonitoring.entity.User;
 import com.example.attendance.attendancemonitoring.service.QrService;
 import com.example.attendance.attendancemonitoring.service.UserService;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.ExecutionException;
 
@@ -22,5 +20,10 @@ public class QrController {
     @PutMapping("/updateqr")
     public String updateQr(@RequestBody QrCode qrCode)throws InterruptedException, ExecutionException {
         return qrService.updateQr(qrCode);
+    }
+
+    @GetMapping("/getqr/{qrId}")
+    public QrCode getQr(@PathVariable String qrId)throws InterruptedException, ExecutionException {
+        return qrService.getQr(qrId);
     }
 }
