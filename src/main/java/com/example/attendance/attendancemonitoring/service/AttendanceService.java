@@ -60,4 +60,17 @@ public class AttendanceService {
         return null;
     }
 
+    public String checkIfExist(String empId) throws ExecutionException, InterruptedException{
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection(formattedDate).document(empId);
+        ApiFuture<DocumentSnapshot> future = documentReference.get();
+        DocumentSnapshot documentSnapshot = future.get();
+        //Attendance attendance;
+        if(documentSnapshot.exists()){
+            return "Yes";
+        }else {
+            return "No";
+        }
+    }
+
 }

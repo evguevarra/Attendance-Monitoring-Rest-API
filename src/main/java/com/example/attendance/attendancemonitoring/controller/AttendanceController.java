@@ -39,4 +39,9 @@ public class AttendanceController {
         return attendanceService.getUserAttendance(empId);
     }
 
+    @GetMapping("/checkExistence/{empId}")
+    public String checkIfExist(@PathVariable String empId)throws InterruptedException, ExecutionException {
+        return attendanceService.checkIfExist(empId);
+    }
+
 }
