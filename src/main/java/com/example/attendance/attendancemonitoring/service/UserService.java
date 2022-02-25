@@ -46,6 +46,20 @@ public class UserService {
         return "Success";
     }
 
+    public String getTotalEmployees()throws ExecutionException, InterruptedException {
+
+        int count=0;
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future =
+                dbFirestore.collection("users").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        List<User> userList = new ArrayList<>();
+        for (DocumentSnapshot document : documents) {
+            count++;
+        }
+        return String.valueOf(count);
+    }
+
     public String deleteUser(String empID){
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> writeResult = dbFirestore.collection("users").document(empID).delete();
@@ -80,6 +94,7 @@ public class UserService {
         return userList;
 
     }
+
 
     private String uploadFile(File file, String fileName) throws IOException {
         BlobId blobId = BlobId.of("employee-attendance-monitoring.appspot.com", fileName);

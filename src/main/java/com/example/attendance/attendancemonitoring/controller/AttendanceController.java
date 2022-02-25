@@ -39,6 +39,11 @@ public class AttendanceController {
         return attendanceService.getUserAttendance(empId);
     }
 
+    @GetMapping("/countTimedIn")
+    public String countEmployees() throws ExecutionException, InterruptedException {
+        return attendanceService.getTotalTimedIn();
+    }
+
     @GetMapping("/checkExistence/{empId}")
     public String checkIfExist(@PathVariable String empId)throws InterruptedException, ExecutionException {
         return attendanceService.checkIfExist(empId);

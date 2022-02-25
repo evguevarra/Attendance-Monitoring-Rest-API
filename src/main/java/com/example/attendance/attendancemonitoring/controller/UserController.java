@@ -48,6 +48,11 @@ public class UserController {
         return userService.getAllEmployeeList();
     }
 
+    @GetMapping("/countEmployees")
+    public String countEmployees() throws ExecutionException, InterruptedException {
+        return userService.getTotalEmployees();
+    }
+
     @PostMapping("/profile/pic")
     public Object upload(@RequestParam("file") MultipartFile multipartFile) {
         //logger.info("HIT -/upload | File Name : {}", multipartFile.getOriginalFilename());

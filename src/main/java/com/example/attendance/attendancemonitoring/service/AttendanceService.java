@@ -34,6 +34,7 @@ public class AttendanceService {
         return attendances;
     }
 
+
     public String addAttendance(Attendance attendance) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionApiFuture  = dbFirestore.collection(formattedDate).document(attendance.getEmpId()).set(attendance);
@@ -58,6 +59,19 @@ public class AttendanceService {
             return attendance;
         }
         return null;
+    }
+
+    public String getTotalTimedIn()throws ExecutionException, InterruptedException {
+
+        int count=0;
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future =
+                dbFirestore.collection(formattedDate).whereEqualTo("timeOut","-").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        for (DocumentSnapshot document : documents) {
+            count++;
+        }
+        return String.valueOf(count);
     }
 
     public String checkIfExist(String empId) throws ExecutionException, InterruptedException{
