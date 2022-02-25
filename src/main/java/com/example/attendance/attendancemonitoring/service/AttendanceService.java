@@ -6,6 +6,8 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
@@ -14,10 +16,15 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class AttendanceService {
 
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    LocalDateTime currentDate = LocalDateTime.now();
+    String formattedDate = formatter.format(currentDate);
+
+
     public List<Attendance> getAttendance() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> future =
-                dbFirestore.collection("2022-02-18").get();
+                dbFirestore.collection(formattedDate).get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
         List<Attendance> attendances = new ArrayList<>();
         for (DocumentSnapshot document : documents) {
