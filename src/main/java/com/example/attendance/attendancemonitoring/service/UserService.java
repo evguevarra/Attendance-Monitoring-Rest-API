@@ -42,14 +42,14 @@ public class UserService {
 
     public String updateUser(User user) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("crud_user").document(user.getEmpId()).set(user);
-        return collectionsApiFuture.get().getUpdateTime().toString();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("users").document(user.getEmpId()).set(user);
+        return "Success";
     }
 
     public String deleteUser(String empID){
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> writeResult = dbFirestore.collection("users").document(empID).delete();
-        return "Successfully Deleted "+empID;
+        return "Success";
     }
 
     public User getUser(String empID) throws ExecutionException, InterruptedException {
