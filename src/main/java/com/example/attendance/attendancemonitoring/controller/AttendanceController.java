@@ -23,4 +23,20 @@ public class AttendanceController {
     public List<Attendance> showAttendance() throws ExecutionException, InterruptedException {
         return attendanceService.getAttendance();
     }
+
+    @PostMapping("/addAttendance")
+    public String addAttendance(@RequestBody Attendance attendance)throws InterruptedException, ExecutionException {
+        return attendanceService.addAttendance(attendance);
+    }
+
+    @PutMapping("/updateAttendance")
+    public String updateAttendance(@RequestBody Attendance attendance)throws InterruptedException, ExecutionException {
+        return attendanceService.updateAttendance(attendance);
+    }
+
+    @GetMapping("/getUserAttendance/{empId}")
+    public Attendance getUserAttendance(@PathVariable String empId)throws InterruptedException, ExecutionException {
+        return attendanceService.getUserAttendance(empId);
+    }
+
 }

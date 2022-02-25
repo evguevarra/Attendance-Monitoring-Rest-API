@@ -1,6 +1,7 @@
 package com.example.attendance.attendancemonitoring.service;
 
 import com.example.attendance.attendancemonitoring.entity.Attendance;
+import com.example.attendance.attendancemonitoring.entity.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
@@ -29,9 +30,34 @@ public class AttendanceService {
         List<Attendance> attendances = new ArrayList<>();
         for (DocumentSnapshot document : documents) {
             attendances.add(document.toObject(Attendance.class));
-            //System.out.println(document.getId() + " => " + document.toObject(User.class));
         }
         return attendances;
-
     }
+
+    public String addAttendance(Attendance attendance) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionApiFuture  = dbFirestore.collection(formattedDate).document(attendance.getEmpId()).set(attendance);
+        return "Success";
+    }
+
+    public String updateAttendance(Attendance attendance) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(formattedDate).document(attendance.getEmpId()).set(attendance);
+        return "Success";
+    }
+
+    public Attendance getUserAttendance(String empId) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection(formattedDate).document(empId);
+        ApiFuture<DocumentSnapshot> future = documentReference.get();
+        DocumentSnapshot documentSnapshot = future.get();
+
+        Attendance attendance;
+        if(documentSnapshot.exists()){
+            attendance = documentSnapshot.toObject(Attendance.class);
+            return attendance;
+        }
+        return null;
+    }
+
 }
