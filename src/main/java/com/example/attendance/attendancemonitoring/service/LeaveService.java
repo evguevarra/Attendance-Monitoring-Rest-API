@@ -14,6 +14,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class LeaveService {
 
+    // Handles Retrieving all Leave Request
     public List<LeaveRequest> getAllRequest() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> future =
@@ -22,10 +23,24 @@ public class LeaveService {
         List<LeaveRequest> requestList = new ArrayList<>();
         for (DocumentSnapshot document : documents) {
             requestList.add(document.toObject(LeaveRequest.class));
-            //System.out.println(document.getId() + " => " + document.toObject(User.class));
         }
         return requestList;
 
+    }
+
+    // Handles Retrieving of a single Leave request of a certain employee
+    public LeaveRequest getRequest(String empID) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("leaves").document(empID);
+        ApiFuture<DocumentSnapshot> future = documentReference.get();
+        DocumentSnapshot documentSnapshot = future.get();
+
+        LeaveRequest leaveRequest;
+        if(documentSnapshot.exists()){
+            leaveRequest = documentSnapshot.toObject(LeaveRequest.class);
+            return leaveRequest;
+        }
+        return null;
     }
 
 }
