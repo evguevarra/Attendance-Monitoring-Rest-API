@@ -18,7 +18,7 @@ public class LeaveService {
     public List<LeaveRequest> getAllRequest() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> future =
-                dbFirestore.collection("leaves").get();
+                dbFirestore.collection("leaves").whereEqualTo("status","Pending").get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
         List<LeaveRequest> requestList = new ArrayList<>();
         for (DocumentSnapshot document : documents) {
