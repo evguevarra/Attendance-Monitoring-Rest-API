@@ -4,9 +4,7 @@ import com.example.attendance.attendancemonitoring.entity.LeaveRequest;
 import com.example.attendance.attendancemonitoring.entity.User;
 import com.example.attendance.attendancemonitoring.service.LeaveService;
 import com.example.attendance.attendancemonitoring.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -30,5 +28,10 @@ public class LeaveController {
     @GetMapping("/getRequest/{empId}")
     public LeaveRequest getLeaveRequest(@PathVariable String empId)throws InterruptedException, ExecutionException {
         return leaveService.getRequest(empId);
+    }
+
+    @PutMapping("/updateStatus")
+    public String updateStatus(@RequestBody LeaveRequest leaveRequest)throws InterruptedException, ExecutionException {
+        return leaveService.updateStatus(leaveRequest);
     }
 }

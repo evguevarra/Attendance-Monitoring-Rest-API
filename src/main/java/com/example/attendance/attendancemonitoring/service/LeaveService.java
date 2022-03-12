@@ -43,4 +43,10 @@ public class LeaveService {
         return null;
     }
 
+    public String updateStatus(LeaveRequest leaveRequest) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("leaves").document(leaveRequest.getEmpId()).set(leaveRequest);
+        return "Success";
+    }
+
 }
