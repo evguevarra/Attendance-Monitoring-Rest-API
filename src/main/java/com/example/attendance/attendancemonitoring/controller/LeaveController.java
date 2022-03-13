@@ -19,9 +19,21 @@ public class LeaveController {
     }
 
     // Handles HTTP request for Retrieving all Leave Request
-    @GetMapping("/getAllRequest")
+    @GetMapping("/getPendingRequest")
+    public List<LeaveRequest> showPendingRequest() throws ExecutionException, InterruptedException {
+        return leaveService.getPendingRequest();
+    }
+
+    // Handles HTTP request for Retrieving all Leave Request
+    @GetMapping("/getApprovedRequest")
+    public List<LeaveRequest> showApprovedRequest() throws ExecutionException, InterruptedException {
+        return leaveService.getApprovedRequest();
+    }
+
+    // Handles HTTP request for Retrieving all Leave Request
+    @GetMapping("/getDeclinedRequest")
     public List<LeaveRequest> showAllRequest() throws ExecutionException, InterruptedException {
-        return leaveService.getAllRequest();
+        return leaveService.getDeclinedRequest();
     }
 
     // Handles HTTP request for Retrieving a certain Leave Request

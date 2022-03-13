@@ -14,11 +14,39 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class LeaveService {
 
-    // Handles Retrieving all Leave Request
-    public List<LeaveRequest> getAllRequest() throws ExecutionException, InterruptedException {
+    // Handles Retrieving all Pending Leave Request
+    public List<LeaveRequest> getPendingRequest() throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<QuerySnapshot> future =
                 dbFirestore.collection("leaves").whereEqualTo("status","Pending").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        List<LeaveRequest> requestList = new ArrayList<>();
+        for (DocumentSnapshot document : documents) {
+            requestList.add(document.toObject(LeaveRequest.class));
+        }
+        return requestList;
+
+    }
+
+    // Handles Retrieving all Approved Leave Request
+    public List<LeaveRequest> getApprovedRequest() throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future =
+                dbFirestore.collection("leaves").whereEqualTo("status","Approved").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        List<LeaveRequest> requestList = new ArrayList<>();
+        for (DocumentSnapshot document : documents) {
+            requestList.add(document.toObject(LeaveRequest.class));
+        }
+        return requestList;
+
+    }
+
+    // Handles Retrieving all Declined Leave Request
+    public List<LeaveRequest> getDeclinedRequest() throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future =
+                dbFirestore.collection("leaves").whereEqualTo("status","Declined").get();
         List<QueryDocumentSnapshot> documents = future.get().getDocuments();
         List<LeaveRequest> requestList = new ArrayList<>();
         for (DocumentSnapshot document : documents) {
