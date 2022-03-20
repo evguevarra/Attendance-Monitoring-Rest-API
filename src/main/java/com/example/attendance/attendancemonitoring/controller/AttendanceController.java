@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @RestController
@@ -22,6 +23,16 @@ public class AttendanceController {
     @GetMapping("/getAttendance")
     public List<Attendance> showAttendance() throws ExecutionException, InterruptedException {
         return attendanceService.getAttendance();
+    }
+
+    @GetMapping("/get-certain-all-attendance")
+    public List<Attendance> showCertainAllAttendance() throws ExecutionException, InterruptedException {
+        return attendanceService.getAllCertainAttendance();
+    }
+
+    @GetMapping("/get-attendance/{empId}")
+    public Map<String, Object> showAllAttendance(@PathVariable String empId) throws ExecutionException, InterruptedException {
+        return attendanceService.getAllAttendance(empId);
     }
 
     @PostMapping("/addAttendance")

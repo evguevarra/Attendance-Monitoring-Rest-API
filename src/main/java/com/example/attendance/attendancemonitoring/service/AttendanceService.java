@@ -5,6 +5,7 @@ import com.example.attendance.attendancemonitoring.entity.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
+import com.sun.source.doctree.AttributeTree;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -12,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.EventListener;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 @Service
@@ -32,6 +34,30 @@ public class AttendanceService {
             attendances.add(document.toObject(Attendance.class));
         }
         return attendances;
+    }
+
+    public List<Attendance> getAllCertainAttendance() throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        ApiFuture<QuerySnapshot> future =
+                dbFirestore.collection("attendance").whereEqualTo("DPSfeKpovwdruBf9Xud5UvX3rFU2.firstName","Edison").get();
+        List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+        List<Attendance> attendances = new ArrayList<>();
+        for (DocumentSnapshot document : documents) {
+            attendances.add(document.toObject(Attendance.class));
+        }
+        return attendances;
+    }
+
+    public Map<String, Object> getAllAttendance(String empId) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("attendance").document(empId);
+        ApiFuture<DocumentSnapshot> future = documentReference.get();
+
+        DocumentSnapshot documentSnapshot = future.get();
+        Map<String, Object> map = documentSnapshot.getData();
+
+
+        return map;
     }
 
 
