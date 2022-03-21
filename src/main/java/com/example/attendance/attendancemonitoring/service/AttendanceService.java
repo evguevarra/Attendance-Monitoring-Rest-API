@@ -1,6 +1,7 @@
 package com.example.attendance.attendancemonitoring.service;
 
 import com.example.attendance.attendancemonitoring.entity.Attendance;
+import com.example.attendance.attendancemonitoring.entity.Report;
 import com.example.attendance.attendancemonitoring.entity.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
@@ -58,6 +59,18 @@ public class AttendanceService {
 
 
         return map;
+    }
+
+    public String addReportAttendance(String empId, Map report) throws ExecutionException, InterruptedException {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        DocumentReference documentReference = dbFirestore.collection("attendance").document(empId);
+        if(documentReference == null){
+            ApiFuture<WriteResult> collectionApiFuture  = dbFirestore.collection("attendance").document(empId).set(report);
+            return "No exist";
+        }else{
+            ApiFuture<WriteResult> collectionApiFuture  = dbFirestore.collection("attendance").document(empId).update(report);
+            return "Success";
+        }
     }
 
 

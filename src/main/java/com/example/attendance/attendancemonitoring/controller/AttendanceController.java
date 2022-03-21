@@ -1,6 +1,7 @@
 package com.example.attendance.attendancemonitoring.controller;
 
 import com.example.attendance.attendancemonitoring.entity.Attendance;
+import com.example.attendance.attendancemonitoring.entity.Report;
 import com.example.attendance.attendancemonitoring.entity.User;
 import com.example.attendance.attendancemonitoring.service.AttendanceService;
 import com.example.attendance.attendancemonitoring.service.UserService;
@@ -43,6 +44,11 @@ public class AttendanceController {
     @PutMapping("/updateAttendance")
     public String updateAttendance(@RequestBody Attendance attendance)throws InterruptedException, ExecutionException {
         return attendanceService.updateAttendance(attendance);
+    }
+
+    @PutMapping("/addAttendance-report/{empId}")
+    public String addReportAttendance(@PathVariable String empId, @RequestBody Map report)throws InterruptedException, ExecutionException {
+        return attendanceService.addReportAttendance(empId,report);
     }
 
     @GetMapping("/getUserAttendance/{empId}")
