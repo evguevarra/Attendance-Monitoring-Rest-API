@@ -64,13 +64,9 @@ public class AttendanceService {
     public String addReportAttendance(String empId, Map report) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         DocumentReference documentReference = dbFirestore.collection("attendance").document(empId);
-        if(documentReference == null){
-            ApiFuture<WriteResult> collectionApiFuture  = dbFirestore.collection("attendance").document(empId).set(report);
-            return "No exist";
-        }else{
-            ApiFuture<WriteResult> collectionApiFuture  = dbFirestore.collection("attendance").document(empId).update(report);
-            return "Success";
-        }
+
+        ApiFuture<WriteResult> collectionApiFuture  = dbFirestore.collection("attendance").document(empId).update(report);
+        return "Success";
     }
 
 

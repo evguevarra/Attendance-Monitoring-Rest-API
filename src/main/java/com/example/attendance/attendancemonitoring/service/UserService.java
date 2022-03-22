@@ -37,6 +37,7 @@ public class UserService {
     public String createUser(User user) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> collectionApiFuture  = dbFirestore.collection("users").document(user.getEmpId()).set(user);
+        //ApiFuture<WriteResult> attendanceApiFuture  = dbFirestore.collection("attendance").document(user.getEmpId()).set("exist");
         return "Success";
     }
 
