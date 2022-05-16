@@ -38,11 +38,6 @@ public class UserController {
         return userService.deleteUser(empId);
     }
 
-    @GetMapping("/ctest")
-    public ResponseEntity<String> testGetEndPoint(){
-        return ResponseEntity.ok("Test Get Endpoint is working");
-    }
-
     @GetMapping("/getAll")
     public List<User> showAllEmployees() throws ExecutionException, InterruptedException {
         return userService.getAllEmployeeList();
@@ -55,7 +50,6 @@ public class UserController {
 
     @PostMapping("/profile/pic")
     public Object upload(@RequestParam("file") MultipartFile multipartFile) {
-        //logger.info("HIT -/upload | File Name : {}", multipartFile.getOriginalFilename());
         return userService.upload(multipartFile);
     }
 

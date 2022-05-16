@@ -1,7 +1,6 @@
 package com.example.attendance.attendancemonitoring.service;
 
 import com.example.attendance.attendancemonitoring.entity.LeaveRequest;
-import com.example.attendance.attendancemonitoring.entity.User;
 import com.google.api.core.ApiFuture;
 import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;

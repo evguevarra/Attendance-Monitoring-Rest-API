@@ -1,11 +1,7 @@
 package com.example.attendance.attendancemonitoring.controller;
 
 import com.example.attendance.attendancemonitoring.entity.Attendance;
-import com.example.attendance.attendancemonitoring.entity.Report;
-import com.example.attendance.attendancemonitoring.entity.User;
 import com.example.attendance.attendancemonitoring.service.AttendanceService;
-import com.example.attendance.attendancemonitoring.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,10 +22,6 @@ public class AttendanceController {
         return attendanceService.getAttendance();
     }
 
-    @GetMapping("/get-certain-all-attendance")
-    public List<Attendance> showCertainAllAttendance() throws ExecutionException, InterruptedException {
-        return attendanceService.getAllCertainAttendance();
-    }
 
     @GetMapping("/get-attendance/{empId}")
     public Map<String, Object> showAllAttendance(@PathVariable String empId) throws ExecutionException, InterruptedException {

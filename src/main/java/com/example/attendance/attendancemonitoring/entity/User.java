@@ -19,6 +19,7 @@ public class User {
     private String position;
     private String imageLink;
     private String password;
+    private String pin;
 
 
 }

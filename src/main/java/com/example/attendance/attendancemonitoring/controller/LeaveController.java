@@ -1,9 +1,7 @@
 package com.example.attendance.attendancemonitoring.controller;
 
 import com.example.attendance.attendancemonitoring.entity.LeaveRequest;
-import com.example.attendance.attendancemonitoring.entity.User;
 import com.example.attendance.attendancemonitoring.service.LeaveService;
-import com.example.attendance.attendancemonitoring.service.UserService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
