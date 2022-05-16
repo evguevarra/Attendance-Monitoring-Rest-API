@@ -2,10 +2,7 @@ package com.example.attendance.attendancemonitoring.controller;
 
 import com.example.attendance.attendancemonitoring.entity.User;
 import com.example.attendance.attendancemonitoring.service.UserService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -48,10 +45,6 @@ public class UserController {
         return userService.getTotalEmployees();
     }
 
-    @PostMapping("/profile/pic")
-    public Object upload(@RequestParam("file") MultipartFile multipartFile) {
-        return userService.upload(multipartFile);
-    }
 
 
 
